@@ -11,6 +11,7 @@ headers = {
 }
 fileName = url.split('/')[-1].split('?')[0]
 session = requests.Session()
+
 try:
     info = requests.head(url)
     size = int(info.headers.get('Content-Length'))
