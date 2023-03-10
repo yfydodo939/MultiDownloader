@@ -93,7 +93,7 @@ def ontop():
 
 
 def detect():
-    global headers, size
+    global size, headers
     try:
         url = url_entry.get()
         fileName = url.split('/')[-1].split('?')[0]
