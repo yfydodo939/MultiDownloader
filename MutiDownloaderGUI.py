@@ -10,9 +10,9 @@ import requests
 
 S = 0
 headers = {
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/111.0.0.0 Safari/537.36"
-        }
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/111.0.0.0 Safari/537.36"
+}
 single, size = 0, 0
 session = requests.Session()
 try:
@@ -83,6 +83,20 @@ def net_check():
         time.sleep(0.5)
 
 
+def setico():
+    try:
+        try:
+            window.iconphoto(True, tk.PhotoImage(file="icon.png"))
+        except:
+            with open("icon.png", "wb") as fp:
+                fp.write(requests.get(
+                    "https://images.weserv.nl/?url=https://article.biliimg.com/bfs/article"
+                    "/fa07c627ce5090d5595f4889032da04bff3e484b.png").content)
+            window.iconphoto(True, tk.PhotoImage(file="icon.png"))
+    except:
+        pass
+
+
 def ontop():
     while True:
         if isOnTop.get() == 1:
@@ -93,7 +107,7 @@ def ontop():
 
 
 def detect():
-    global size, headers
+    global headers, size
     try:
         url = url_entry.get()
         fileName = url.split('/')[-1].split('?')[0]
@@ -149,7 +163,8 @@ thread = tk.StringVar()
 ttk.OptionMenu(frame2, thread, "64", "1", "4", "16", "64", "128", "256").grid(row=0, column=1, padx=10, sticky="w")
 detect_button = ttk.Button(frame2, text="检测", command=detect)
 detect_button.grid(row=0, column=2)
-download_button = ttk.Button(frame2, text="开始下载", state="disabled", command=threading.Thread(target=download_start, daemon=True).start)
+download_button = ttk.Button(frame2, text="开始下载", state="disabled",
+                             command=threading.Thread(target=download_start, daemon=True).start)
 download_button.grid(row=0, column=3)
 
 progressbar = ttk.Progressbar(length=360, value=0)
@@ -165,6 +180,7 @@ ttk.Label(textvariable=net_str).grid(sticky="e", padx=15, row=3)
 
 threading.Thread(target=ontop, daemon=True).start()
 threading.Thread(target=net_check, daemon=True).start()
+threading.Thread(target=setico, daemon=True).start()
 url_entry.focus_set()
 
 window.mainloop()
