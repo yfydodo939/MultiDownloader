@@ -132,7 +132,7 @@ def detect():
 
 
 window = tk.Tk()
-window.title("MutiDownloader by dodo939")
+window.title("MultiDownloader by dodo939")
 window.geometry("400x225")
 window.resizable(width=False, height=False)
 
